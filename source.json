@@ -1,6 +1,11 @@
 {
   "owner": "shogo82148",
   "repo": "actions-setup-perl",
-  "version": "",
-  "url": "https://github.com/shogo82148/actions-setup-perl"
+  "version": "v1.41.1",
+  "commit_sha": "a198315ec4e9244f206879ea7b63078003aec8a6",
+  "url": "https://github.com/shogo82148/actions-setup-perl",
+  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
+  "test_agent_version": "1",
+  "harden_agent_version": "1"
 }
