@@ -9,6 +9,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | Version | Tag | Upstream commit |
 |---------|-----|-----------------|
 | v1.40.1 | [`v1.40.1`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.40.1) | [`922d4ec`](https://github.com/shogo82148/actions-setup-perl/commit/922d4ec780f14b8ff6d6e09c15d5eaee240b23a0) |
+| v1.41.1 | [`v1.41.1`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.41.1) | [`a198315`](https://github.com/shogo82148/actions-setup-perl/commit/a198315ec4e9244f206879ea7b63078003aec8a6) |
 
 ## Privacy
 
