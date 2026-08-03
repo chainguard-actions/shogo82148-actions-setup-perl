@@ -1,0 +1,50 @@
+name: update cpm
+on:
+  schedule:
+    - cron: "21 15 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "author/cpm/*"
+      - ".github/workflows/update-cpm.yml"
+    branches-ignore:
+      # to avoid recursion
+      - "auto-update/*"
+
+jobs:
+  cpm:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: update cpanfile.snapshot
+        run: make update
+        working-directory: ./author/cpm
+
+      - name: build cpm
+        run: |
+          git diff
+          if [[ -n "$(git status --short)" ]]; then
+            make install
+          fi
+        working-directory: ./author/cpm
+
+      - name: Generate token
+        id: generate_token
+        uses: shogo82148/actions-github-app-token@84232dc4d9bd875d4dd83e3e5c4705db1c98a997 # v1.3.1
+
+      - name: commit
+        uses: shogo82148/actions-commit-and-create-pr@b1322fe9da4037e9720e34ea221997cffcd3498d # v1.1.4
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          head-branch-prefix: "auto-update/cpm-"
+          commit-message: "update cpm"

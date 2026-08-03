@@ -1,0 +1,53 @@
+name: Test specific Perl version setup
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+          enable-modules-cache: false
+
+      - name: Assert perl-version output matches requested version
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version output: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          # Check that the version starts with 5.38
+          if echo "$PERL_VERSION" | grep -qE '^5\.38'; then
+            echo "PASS: perl-version=$PERL_VERSION matches 5.38.x"
+          else
+            echo "FAIL: expected version starting with 5.38, got $PERL_VERSION"
+            exit 1
+          fi
+
+      - name: Assert perl binary reports correct version
+        run: |
+          ACTUAL=$(perl -e 'printf "%vd", $^V')
+          echo "perl reports version: $ACTUAL"
+          if echo "$ACTUAL" | grep -qE '^5\.38'; then
+            echo "PASS: perl version is 5.38.x"
+          else
+            echo "FAIL: expected 5.38.x, got $ACTUAL"
+            exit 1
+          fi
+
+      - name: Assert perl-hash output is set
+        env:
+          PERL_HASH: ${{ steps.setup-perl.outputs.perl-hash }}
+        run: |
+          echo "perl-hash: $PERL_HASH"
+          if [ -z "$PERL_HASH" ]; then
+            echo "FAIL: perl-hash output is empty"
+            exit 1
+          fi
+          echo "PASS"

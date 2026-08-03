@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: "@types/node"
+        update-types:
+          # We update the major version manually,
+          # because it should be the same as the runtime version.
+          - "version-update:semver-major"
+          # update too often, ignore patch releases
+          - "version-update:semver-patch"
+    cooldown:
+      default-days: 7
+
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+    groups:
+      codeql-actions:
+        patterns:
+          - "github/codeql-action/*"

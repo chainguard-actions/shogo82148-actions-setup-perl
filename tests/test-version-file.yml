@@ -1,0 +1,47 @@
+name: Test Perl version from file
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create .perl-version file
+        run: |
+          echo "5.36.0" > .perl-version
+          cat .perl-version
+
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version-file: ".perl-version"
+          enable-modules-cache: false
+
+      - name: Assert perl-version output matches file content
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version output: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          # Check that the version starts with 5.36
+          if echo "$PERL_VERSION" | grep -qE '^5\.36'; then
+            echo "PASS: perl-version=$PERL_VERSION matches 5.36.x"
+          else
+            echo "FAIL: expected version starting with 5.36, got $PERL_VERSION"
+            exit 1
+          fi
+
+      - name: Assert perl binary reports correct version
+        run: |
+          ACTUAL=$(perl -e 'printf "%vd", $^V')
+          echo "perl reports version: $ACTUAL"
+          if echo "$ACTUAL" | grep -qE '^5\.36'; then
+            echo "PASS: perl version is 5.36.x"
+          else
+            echo "FAIL: expected 5.36.x, got $ACTUAL"
+            exit 1
+          fi

@@ -1,0 +1,54 @@
+name: Test basic Perl setup (default version)
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - id: setup-perl
+        uses: .
+        with:
+          enable-modules-cache: false
+
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-version=$PERL_VERSION"
+
+      - name: Assert perl-hash output is set
+        env:
+          PERL_HASH: ${{ steps.setup-perl.outputs.perl-hash }}
+        run: |
+          echo "perl-hash: $PERL_HASH"
+          if [ -z "$PERL_HASH" ]; then
+            echo "FAIL: perl-hash output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-hash=$PERL_HASH"
+
+      - name: Assert perl is on PATH and executable
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is available on PATH"
+
+      - name: Assert perl version matches output
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          ACTUAL_VERSION=$(perl -e 'print $^V' | sed 's/^v//')
+          echo "output perl-version: $PERL_VERSION"
+          echo "actual perl -e version: $ACTUAL_VERSION"
+          if [ -z "$ACTUAL_VERSION" ]; then
+            echo "FAIL: could not determine perl version"
+            exit 1
+          fi
+          echo "PASS"

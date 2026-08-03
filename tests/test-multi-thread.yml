@@ -1,0 +1,48 @@
+name: Test multi-thread Perl setup
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+          multi-thread: "true"
+          enable-modules-cache: false
+
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS"
+
+      - name: Assert perl is on PATH
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is available"
+
+      - name: Assert multi-threading is enabled
+        run: |
+          # Check that perl was built with ithreads support
+          ITHREADS=$(perl -V | grep -i 'useithreads=define' || true)
+          echo "ithreads config: $ITHREADS"
+          if [ -z "$ITHREADS" ]; then
+            echo "FAIL: perl does not have ithreads (multi-thread) enabled"
+            exit 1
+          fi
+          echo "PASS: multi-threading is enabled"
+
+      - name: Assert threads module works
+        run: |
+          perl -e 'use threads; my $t = threads->create(sub { return 42; }); print $t->join(), "\n"'
+          echo "PASS: threads module works"
