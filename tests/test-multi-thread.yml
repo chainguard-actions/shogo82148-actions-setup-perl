@@ -1,0 +1,48 @@
+name: Test multi-thread Perl setup
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+          multi-thread: "true"
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-version=$PERL_VERSION"
+      - name: Assert perl is available
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is available"
+      - name: Assert threading is enabled
+        run: |
+          # Check that perl was built with ithreads support
+          THREADS=$(perl -MConfig -e 'print $Config{useithreads}')
+          echo "useithreads: $THREADS"
+          if [ "$THREADS" != "define" ]; then
+            echo "FAIL: expected ithreads to be enabled (define) but got: $THREADS"
+            exit 1
+          fi
+          echo "PASS: multi-threading is enabled"
+      - name: Assert perl-hash output is set
+        env:
+          PERL_HASH: ${{ steps.setup-perl.outputs.perl-hash }}
+        run: |
+          echo "perl-hash: $PERL_HASH"
+          if [ -z "$PERL_HASH" ]; then
+            echo "FAIL: perl-hash output is empty"
+            exit 1
+          fi
+          echo "PASS"

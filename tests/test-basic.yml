@@ -1,0 +1,48 @@
+name: Test basic Perl setup (default version)
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-version=$PERL_VERSION"
+      - name: Assert perl-hash output is set
+        env:
+          PERL_HASH: ${{ steps.setup-perl.outputs.perl-hash }}
+        run: |
+          echo "perl-hash: $PERL_HASH"
+          if [ -z "$PERL_HASH" ]; then
+            echo "FAIL: perl-hash output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-hash=$PERL_HASH"
+      - name: Assert perl is in PATH and executable
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is available in PATH"
+      - name: Assert perl version matches requested
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "Requested: 5.38.0"
+          echo "Got: $PERL_VERSION"
+          if [[ "$PERL_VERSION" != 5.38* ]]; then
+            echo "FAIL: expected perl 5.38.x but got $PERL_VERSION"
+            exit 1
+          fi
+          echo "PASS"

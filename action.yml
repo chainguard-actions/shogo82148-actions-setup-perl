@@ -1,0 +1,71 @@
+name: "Setup Perl environment"
+description: "Setup a Perl environment and add it to the PATH"
+author: "ICHINOSE Shogo"
+inputs:
+  github-token:
+    description: |
+      The GitHub token to use for verifying the perl binary.
+    default: "${{ github.token }}"
+  perl-version:
+    description: "The Perl version to download (if necessary) and use. Example: 5.30.0"
+    required: false
+  perl-version-file:
+    description: "File containing the Perl version. Example: .perl-version"
+    required: false
+  distribution:
+    description: |
+      The distribution of Perl binary.
+      "default" and "strawberry" are accepted.
+      "default" is the custom binaries for actions-setup-perl. It is available on Linux, macOS, and Windows.
+      "strawberry" is from http://strawberryperl.com/ . It is available on Windows and falls back to default on other platform.
+    default: "default"
+    required: false
+  multi-thread:
+    description: |
+      enables multi threading options(-Duseithreads).
+      "true" and "false" are accepted.
+      On Linux and macOS, the default value is false (multi threading is disabled).
+      On Windows, this option is ignored, multi-threading is always enabled.
+    required: false
+  install-modules-with:
+    description: |
+      install CPAN modules from your cpanfile with the specified installer.
+      cpanm(App::cpanminus), cpm(App::cpm, required Perl 5.24 or later.), and carton(Carton) are available.
+      By default, any CPAN modules are not installed.
+    required: false
+  install-modules-args:
+    description: |
+      extra argument for CPAN module installer.
+    required: false
+  install-modules:
+    description: |
+      List of one or more CPAN modules, separated by a newline \n character.
+    required: false
+  enable-modules-cache:
+    description: enable caching when install CPAN modules.
+    default: true
+    required: false
+  working-directory:
+    description: working directory.
+    default: "."
+    required: false
+outputs:
+  perl-version:
+    description: |
+      The version of perl actually installed.
+  perl-hash:
+    description: |
+      The digest of perl -V.
+      It contains useful information to use as the cache key,
+      e.g. the platform, the version of perl, the compiler option for building perl.
+  cache-hit:
+    description: "A boolean value to indicate if a cache was hit"
+runs:
+  pre: chainguard-phonehome.js
+  using: "node24"
+  main: "dist/setup/index.js"
+  post: "dist/cache-save/index.js"
+  post-if: success()
+branding:
+  icon: "play"
+  color: "blue"

@@ -1,0 +1,38 @@
+name: Test installing CPAN modules via install-modules input
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+          install-modules: |
+            Try::Tiny
+            Scalar::Util
+      - name: Assert perl is available
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is available"
+      - name: Assert Try::Tiny is installed
+        run: |
+          perl -MTry::Tiny -e 'print "Try::Tiny loaded OK\n"'
+          echo "PASS: Try::Tiny is installed"
+      - name: Assert Scalar::Util is installed
+        run: |
+          perl -MScalar::Util -e 'print "Scalar::Util loaded OK\n"'
+          echo "PASS: Scalar::Util is installed"
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS"
