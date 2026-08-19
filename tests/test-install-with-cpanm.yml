@@ -1,4 +1,4 @@
-name: Test installing CPAN modules
+name: Test installing modules from cpanfile with cpanm
 on:
   workflow_dispatch:
 jobs:
@@ -10,28 +10,27 @@ jobs:
         uses: .
         with:
           perl-version: "5.38.0"
-          install-modules: |
-            JSON
-            Try::Tiny
+          install-modules-with: "cpanm"
+          working-directory: "tests/fixtures"
           enable-modules-cache: "false"
       - name: Assert perl is available
         run: |
           which perl
           perl --version
           echo "PASS: perl is available"
-      - name: Assert JSON module is installed
+      - name: Assert JSON module is installed via cpanm
         run: |
           if perl -e 'use JSON; print "JSON version: ", JSON->VERSION, "\n"'; then
             echo "PASS: JSON module is installed"
           else
-            echo "FAIL: JSON module not available"
+            echo "FAIL: JSON module not available after cpanm install"
             exit 1
           fi
-      - name: Assert Try::Tiny module is installed
+      - name: Assert Try::Tiny module is installed via cpanm
         run: |
           if perl -e 'use Try::Tiny; print "Try::Tiny version: ", Try::Tiny->VERSION, "\n"'; then
             echo "PASS: Try::Tiny module is installed"
           else
-            echo "FAIL: Try::Tiny module not available"
+            echo "FAIL: Try::Tiny module not available after cpanm install"
             exit 1
           fi

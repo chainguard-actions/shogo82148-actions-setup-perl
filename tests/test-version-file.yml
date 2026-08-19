@@ -1,0 +1,40 @@
+name: Test Perl version from file
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create .perl-version file
+        run: |
+          echo "5.36.0" > "$GITHUB_WORKSPACE/.perl-version"
+          cat "$GITHUB_WORKSPACE/.perl-version"
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version-file: ".perl-version"
+          enable-modules-cache: "false"
+      - name: Assert perl-version output matches file content
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          if [ "${PERL_VERSION#5.36}" = "$PERL_VERSION" ]; then
+            echo "FAIL: expected perl version starting with 5.36, got $PERL_VERSION"
+            exit 1
+          fi
+          echo "PASS: perl-version=$PERL_VERSION"
+      - name: Assert correct perl version is on PATH
+        run: |
+          ACTUAL=$(perl -e 'print $^V')
+          echo "perl version on PATH: $ACTUAL"
+          if [ "${ACTUAL#v5.36}" = "$ACTUAL" ]; then
+            echo "FAIL: expected perl v5.36.x on PATH, got $ACTUAL"
+            exit 1
+          fi
+          echo "PASS: correct perl version is on PATH"
