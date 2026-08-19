@@ -1,4 +1,4 @@
-name: Test Perl setup with multi-thread enabled
+name: Test basic Perl setup
 on:
   workflow_dispatch:
 jobs:
@@ -10,7 +10,6 @@ jobs:
         uses: .
         with:
           perl-version: "5.38.0"
-          multi-thread: "true"
       - name: Assert perl-version output is set
         env:
           PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
@@ -31,16 +30,14 @@ jobs:
             exit 1
           fi
           echo "PASS: perl-hash is set"
-      - name: Assert perl is on PATH
+      - name: Assert perl is on PATH and correct version
         run: |
           which perl
           perl --version
-          echo "PASS: perl is available"
-      - name: Assert ithreads are enabled
-        run: |
-          perl -e 'use Config; if ($Config{useithreads}) { print "ithreads enabled\n"; exit 0; } else { print "ithreads NOT enabled\n"; exit 1; }'
-          if [ $? -ne 0 ]; then
-            echo "FAIL: ithreads not enabled"
+          ACTUAL_VERSION=$(perl -e 'print $^V')
+          echo "actual perl version: $ACTUAL_VERSION"
+          if ! echo "$ACTUAL_VERSION" | grep -q "5.38"; then
+            echo "FAIL: expected perl 5.38.x but got $ACTUAL_VERSION"
             exit 1
           fi
-          echo "PASS: ithreads are enabled"
+          echo "PASS: perl version matches"

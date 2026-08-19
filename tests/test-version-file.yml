@@ -1,4 +1,4 @@
-name: Test Perl setup with module installation
+name: Test Perl setup with version file
 on:
   workflow_dispatch:
 jobs:
@@ -6,13 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create .perl-version file
+        run: |
+          echo "5.36.0" > .perl-version
+          cat .perl-version
       - id: setup-perl
         uses: .
         with:
-          perl-version: "5.38.0"
-          install-modules-with: cpanm
-          install-modules: |
-            Try::Tiny
+          perl-version-file: ".perl-version"
       - name: Assert perl-version output is set
         env:
           PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
@@ -23,11 +24,14 @@ jobs:
             exit 1
           fi
           echo "PASS: perl-version=$PERL_VERSION"
-      - name: Assert Try::Tiny module is installed
+      - name: Assert perl is on PATH and correct version
         run: |
-          perl -MTry::Tiny -e 'print "Try::Tiny loaded OK\n"'
-          if [ $? -ne 0 ]; then
-            echo "FAIL: Try::Tiny module not found"
+          which perl
+          perl --version
+          ACTUAL_VERSION=$(perl -e 'print $^V')
+          echo "actual perl version: $ACTUAL_VERSION"
+          if ! echo "$ACTUAL_VERSION" | grep -q "5.36"; then
+            echo "FAIL: expected perl 5.36.x but got $ACTUAL_VERSION"
             exit 1
           fi
-          echo "PASS: Try::Tiny is installed"
+          echo "PASS: perl version matches"
