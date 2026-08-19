@@ -1,4 +1,4 @@
-name: Test multi-thread input
+name: Test multi-thread Perl setup
 on:
   workflow_dispatch:
 jobs:
@@ -11,6 +11,11 @@ jobs:
         with:
           perl-version: "5.38.0"
           multi-thread: "true"
+      - name: Assert perl is on PATH
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is on PATH"
       - name: Assert perl-version output is set
         env:
           ACTUAL: ${{ steps.setup-perl.outputs.perl-version }}
@@ -20,8 +25,13 @@ jobs:
             echo "FAIL: perl-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert perl is available
+          echo "PASS: perl-version output is set to $ACTUAL"
+      - name: Assert threading is enabled
         run: |
-          perl --version
-          echo "PASS: perl is available"
+          THREADS=$(perl -e 'use Config; print $Config{usethreads}')
+          echo "usethreads: $THREADS"
+          if [ "$THREADS" != "define" ]; then
+            echo "FAIL: expected threading to be enabled (define) but got: $THREADS"
+            exit 1
+          fi
+          echo "PASS: threading is enabled"

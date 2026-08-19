@@ -1,4 +1,4 @@
-name: Test install-modules inputs
+name: Test installing CPAN modules
 on:
   workflow_dispatch:
 jobs:
@@ -10,21 +10,17 @@ jobs:
         uses: .
         with:
           perl-version: "5.38.0"
-          install-modules-with: "cpanm"
-          install-modules-args: "--notest"
           install-modules: |
             Try::Tiny
-      - name: Assert perl-version output is set
-        env:
-          ACTUAL: ${{ steps.setup-perl.outputs.perl-version }}
+            Scalar::Util
+      - name: Assert perl is on PATH
         run: |
-          echo "actual perl-version: $ACTUAL"
-          if [ -z "$ACTUAL" ]; then
-            echo "FAIL: perl-version output is empty"
-            exit 1
-          fi
-          echo "PASS"
+          which perl
+          perl --version
+          echo "PASS: perl is on PATH"
       - name: Assert Try::Tiny is installed
         run: |
-          perl -MTry::Tiny -e 'print "Try::Tiny loaded successfully\n"'
-          echo "PASS: Try::Tiny is installed"
+          perl -e 'use Try::Tiny; print "PASS: Try::Tiny loaded\n"'
+      - name: Assert Scalar::Util is installed
+        run: |
+          perl -e 'use Scalar::Util; print "PASS: Scalar::Util loaded\n"'

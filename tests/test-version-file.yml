@@ -1,4 +1,4 @@
-name: Test perl-version-file input
+name: Test Perl setup from version file
 on:
   workflow_dispatch:
 jobs:
@@ -8,11 +8,17 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Create .perl-version file
         run: |
-          echo "5.38.0" > .perl-version
+          echo "5.36.0" > .perl-version
+          cat .perl-version
       - id: setup-perl
         uses: .
         with:
           perl-version-file: ".perl-version"
+      - name: Assert perl is on PATH
+        run: |
+          which perl
+          perl --version
+          echo "PASS: perl is on PATH"
       - name: Assert perl-version output is set
         env:
           ACTUAL: ${{ steps.setup-perl.outputs.perl-version }}
@@ -22,8 +28,13 @@ jobs:
             echo "FAIL: perl-version output is empty"
             exit 1
           fi
-          echo "PASS"
-      - name: Assert perl is available
+          echo "PASS: perl-version output is set to $ACTUAL"
+      - name: Assert perl version matches version file
         run: |
-          perl --version
-          echo "PASS: perl is available"
+          INSTALLED=$(perl -e 'print $^V')
+          echo "installed perl version: $INSTALLED"
+          if [ "$INSTALLED" != "v5.36.0" ]; then
+            echo "FAIL: expected v5.36.0 but got $INSTALLED"
+            exit 1
+          fi
+          echo "PASS: perl version matches version file"
