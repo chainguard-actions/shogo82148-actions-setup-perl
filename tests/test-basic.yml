@@ -1,4 +1,4 @@
-name: Test basic perl-version input
+name: Test basic Perl setup
 on:
   workflow_dispatch:
 jobs:
@@ -8,20 +8,28 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - id: setup-perl
         uses: .
-        with:
-          perl-version: "5.38.0"
-      - name: Assert perl-version output is set
+      - name: Assert perl-version output is non-empty
         env:
-          ACTUAL: ${{ steps.setup-perl.outputs.perl-version }}
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
         run: |
-          echo "actual perl-version: $ACTUAL"
-          if [ -z "$ACTUAL" ]; then
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
             echo "FAIL: perl-version output is empty"
             exit 1
           fi
-          echo "PASS"
+          echo "PASS: perl-version=$PERL_VERSION"
+      - name: Assert perl-hash output is non-empty
+        env:
+          PERL_HASH: ${{ steps.setup-perl.outputs.perl-hash }}
+        run: |
+          echo "perl-hash: $PERL_HASH"
+          if [ -z "$PERL_HASH" ]; then
+            echo "FAIL: perl-hash output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-hash is set"
       - name: Assert perl is on PATH
         run: |
           which perl
           perl --version
-          echo "PASS"
+          echo "PASS: perl is available on PATH"

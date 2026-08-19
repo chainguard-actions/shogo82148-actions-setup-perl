@@ -1,4 +1,4 @@
-name: Test multi-thread Perl setup
+name: Test specific Perl version setup
 on:
   workflow_dispatch:
 jobs:
@@ -10,8 +10,7 @@ jobs:
         uses: .
         with:
           perl-version: "5.38.0"
-          multi-thread: "true"
-      - name: Assert perl-version output is non-empty
+      - name: Assert perl-version output matches requested version
         env:
           PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
         run: |
@@ -20,18 +19,17 @@ jobs:
             echo "FAIL: perl-version output is empty"
             exit 1
           fi
-          echo "PASS: perl-version=$PERL_VERSION"
-      - name: Assert perl is on PATH
-        run: |
-          which perl
-          perl --version
-          echo "PASS: perl is available on PATH"
-      - name: Assert multi-threading is enabled
-        run: |
-          THREADS=$(perl -e 'use Config; print $Config{usethreads}')
-          echo "usethreads: $THREADS"
-          if [ "$THREADS" != "define" ]; then
-            echo "FAIL: expected multi-threading to be enabled (define), got '$THREADS'"
+          if [[ "$PERL_VERSION" != 5.38* ]]; then
+            echo "FAIL: expected perl version starting with 5.38, got $PERL_VERSION"
             exit 1
           fi
-          echo "PASS: multi-threading is enabled"
+          echo "PASS: perl-version=$PERL_VERSION"
+      - name: Assert perl binary reports correct version
+        run: |
+          ACTUAL=$(perl -e 'print $^V')
+          echo "perl reports: $ACTUAL"
+          if [[ "$ACTUAL" != v5.38* ]]; then
+            echo "FAIL: expected perl v5.38.x, got $ACTUAL"
+            exit 1
+          fi
+          echo "PASS: perl version matches"

@@ -1,0 +1,50 @@
+name: update carton
+on:
+  schedule:
+    - cron: "41 16 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "author/carton/*"
+      - ".github/workflows/update-carton.yml"
+    branches-ignore:
+      # to avoid recursion
+      - "auto-update/*"
+
+jobs:
+  carton:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: update cpanfile.snapshot
+        run: make update
+        working-directory: ./author/carton
+
+      - name: build carton
+        run: |
+          git diff
+          if [[ -n "$(git status --short)" ]]; then
+            make install
+          fi
+        working-directory: ./author/carton
+
+      - name: Generate token
+        id: generate_token
+        uses: shogo82148/actions-github-app-token@94b186c0f90dbc0cc72a3a5f056ca277cb14c3ea # v1.2.0
+
+      - name: commit
+        uses: shogo82148/actions-commit-and-create-pr@b1322fe9da4037e9720e34ea221997cffcd3498d # v1.1.4
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          head-branch-prefix: "auto-update/carton-"
+          commit-message: "update carton"
