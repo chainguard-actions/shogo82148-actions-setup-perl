@@ -11,19 +11,24 @@ jobs:
         with:
           perl-version: "5.38"
           install-modules-with: cpanm
-          install-modules-args: "--notest"
+          install-modules-args: "--notest --quiet"
           install-modules: |
             Try::Tiny
       - name: Assert perl-version output is set
         env:
-          ACTUAL: ${{ steps.setup-perl.outputs.perl-version }}
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
         run: |
-          echo "actual perl-version: $ACTUAL"
-          if [ -z "$ACTUAL" ]; then
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
             echo "FAIL: perl-version output is empty"
             exit 1
           fi
-          echo "PASS: perl-version=$ACTUAL"
+          echo "PASS: perl-version is set to $PERL_VERSION"
       - name: Assert Try::Tiny is installed
         run: |
-          perl -e "use Try::Tiny; print 'PASS: Try::Tiny loaded\n'"
+          perl -e "use Try::Tiny; print 'Try::Tiny loaded OK\n';"
+          if [ $? -ne 0 ]; then
+            echo "FAIL: Try::Tiny not installed"
+            exit 1
+          fi
+          echo "PASS: Try::Tiny is installed"
