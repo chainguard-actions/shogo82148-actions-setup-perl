@@ -1,0 +1,691 @@
+# carton snapshot format: version 1.0
+DISTRIBUTIONS
+  Algorithm-C3-0.11
+    pathname: H/HA/HAARG/Algorithm-C3-0.11.tar.gz
+    provides:
+      Algorithm::C3 0.11
+    requirements:
+      Carp 0.01
+      ExtUtils::MakeMaker 0
+      perl 5.006
+  App-FatPacker-0.010008
+    pathname: M/MS/MSTROUT/App-FatPacker-0.010008.tar.gz
+    provides:
+      App::FatPacker 0.010008
+      App::FatPacker::Trace undef
+    requirements:
+      B 1.01
+      Cwd 0
+      ExtUtils::MakeMaker 0
+      File::Copy 0
+      File::Find 0
+      File::Path 0
+      File::Spec::Functions 0
+      File::Spec::Unix 0
+      Getopt::Long 0
+      perl 5.008000
+  App-FatPacker-Simple-v1.0.2
+    pathname: S/SK/SKAJI/App-FatPacker-Simple-v1.0.2.tar.gz
+    provides:
+      App::FatPacker::Simple v1.0.2
+      App::FatPacker::Simple::Tutorial undef
+    requirements:
+      App::FatPacker 0
+      Distribution::Metadata 0.05
+      Getopt::Long 2.39
+      Module::Build::Tiny 0.053
+      Perl::Strip 0
+      perl v5.24.0
+  App-cpm-v1.1.5
+    pathname: S/SK/SKAJI/App-cpm-v1.1.5.tar.gz
+    provides:
+      App::cpm v1.1.5
+      App::cpm::Builder::Base undef
+      App::cpm::Builder::EUMM undef
+      App::cpm::Builder::MB undef
+      App::cpm::Builder::Prebuilt undef
+      App::cpm::Builder::Static undef
+      App::cpm::CLI undef
+      App::cpm::CircularDependency undef
+      App::cpm::Context undef
+      App::cpm::DistNotation undef
+      App::cpm::Distribution undef
+      App::cpm::HTTP undef
+      App::cpm::Installer::Unpacker undef
+      App::cpm::Logger undef
+      App::cpm::Logger::File undef
+      App::cpm::Logger::Terminal undef
+      App::cpm::Master undef
+      App::cpm::Requirement undef
+      App::cpm::Resolver undef
+      App::cpm::Resolver::02Packages undef
+      App::cpm::Resolver::Cascade undef
+      App::cpm::Resolver::Custom undef
+      App::cpm::Resolver::Fixed undef
+      App::cpm::Resolver::MetaCPAN undef
+      App::cpm::Resolver::MetaDB undef
+      App::cpm::Resolver::Snapshot undef
+      App::cpm::Task undef
+      App::cpm::Tutorial undef
+      App::cpm::Util undef
+      App::cpm::Worker undef
+      App::cpm::Worker::Installer undef
+      App::cpm::Worker::Installer::Custom undef
+      App::cpm::Worker::Resolver undef
+      App::cpm::version undef
+    requirements:
+      CPAN::02Packages::Search v1.0.0
+      CPAN::DistnameInfo 0
+      Command::Runner v1.0.0
+      Darwin::InitObjC v1.0.0
+      ExtUtils::Config 0
+      ExtUtils::Helpers 0
+      ExtUtils::Install 2.20
+      ExtUtils::InstallPaths 0.002
+      File::Copy::Recursive 0
+      File::Which 0
+      File::pushd 0
+      HTTP::Tinyish 0.12
+      IPC::Run3 0
+      Module::Build::Tiny 0.053
+      Module::CPANfile 0
+      Module::cpmfile v1.0.0
+      Parallel::Pipes::App v1.0.0
+      Parse::LocalDistribution 0.20
+      Proc::ForkSafe v1.0.0
+      YAML::PP 0
+      perl v5.24.0
+  CPAN-02Packages-Search-v1.0.0
+    pathname: S/SK/SKAJI/CPAN-02Packages-Search-v1.0.0.tar.gz
+    provides:
+      CPAN::02Packages::Search v1.0.0
+    requirements:
+      Module::Build::Tiny 0.053
+      Search::Dict 1.07
+      Tie::Handle::SkipHeader 0.004
+      perl v5.24.0
+  CPAN-DistnameInfo-0.12
+    pathname: G/GB/GBARR/CPAN-DistnameInfo-0.12.tar.gz
+    provides:
+      CPAN::DistnameInfo 0.12
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0
+  Capture-Tiny-0.50
+    pathname: D/DA/DAGOLDEN/Capture-Tiny-0.50.tar.gz
+    provides:
+      Capture::Tiny 0.50
+    requirements:
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.17
+      File::Spec 0
+      File::Temp 0
+      IO::Handle 0
+      Scalar::Util 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Class-C3-0.35
+    pathname: H/HA/HAARG/Class-C3-0.35.tar.gz
+    provides:
+      Class::C3 0.35
+    requirements:
+      Algorithm::C3 0.07
+      ExtUtils::MakeMaker 0
+      Scalar::Util 0
+      perl 5.006
+  Clone-0.50
+    pathname: A/AT/ATOOMIC/Clone-0.50.tar.gz
+    provides:
+      Clone 0.50
+    requirements:
+      ExtUtils::MakeMaker 0
+  Command-Runner-v1.0.0
+    pathname: S/SK/SKAJI/Command-Runner-v1.0.0.tar.gz
+    provides:
+      Command::Runner v1.0.0
+      Command::Runner::LineBuffer undef
+      Command::Runner::Quote undef
+      Command::Runner::Timeout undef
+    requirements:
+      Capture::Tiny 0
+      File::pushd 0
+      Module::Build::Tiny 0.053
+      String::ShellQuote 0
+      Win32::ShellQuote 0
+      perl v5.24.0
+  Darwin-InitObjC-v1.0.0
+    pathname: S/SK/SKAJI/Darwin-InitObjC-v1.0.0.tar.gz
+    provides:
+      Darwin::InitObjC v1.0.0
+    requirements:
+      Module::Build::Tiny 0.053
+      perl v5.24.0
+  Devel-GlobalDestruction-0.14
+    pathname: H/HA/HAARG/Devel-GlobalDestruction-0.14.tar.gz
+    provides:
+      Devel::GlobalDestruction 0.14
+    requirements:
+      ExtUtils::MakeMaker 0
+      Sub::Exporter::Progressive 0.001011
+      perl 5.006
+  Devel-GlobalDestruction-XS-0.03
+    pathname: H/HA/HAARG/Devel-GlobalDestruction-XS-0.03.tar.gz
+    provides:
+      Devel::GlobalDestruction::XS 0.03
+    requirements:
+  Distribution-Metadata-v1.0.0
+    pathname: S/SK/SKAJI/Distribution-Metadata-v1.0.0.tar.gz
+    provides:
+      Distribution::Metadata v1.0.0
+      Distribution::Metadata::Factory undef
+    requirements:
+      CPAN::DistnameInfo 0
+      CPAN::Meta 0
+      ExtUtils::Packlist 0
+      JSON 0
+      Module::Build::Tiny 0.053
+      Module::Metadata 0
+      perl v5.24.0
+  ExtUtils-Config-0.010
+    pathname: L/LE/LEONT/ExtUtils-Config-0.010.tar.gz
+    provides:
+      ExtUtils::Config 0.010
+      ExtUtils::Config::MakeMaker 0.010
+    requirements:
+      Data::Dumper 0
+      ExtUtils::MakeMaker 0
+      ExtUtils::MakeMaker::Config 0
+      perl 5.006
+      strict 0
+      warnings 0
+  ExtUtils-Helpers-0.028
+    pathname: L/LE/LEONT/ExtUtils-Helpers-0.028.tar.gz
+    provides:
+      ExtUtils::Helpers 0.028
+      ExtUtils::Helpers::Unix 0.028
+      ExtUtils::Helpers::VMS 0.028
+      ExtUtils::Helpers::Windows 0.028
+    requirements:
+      Carp 0
+      Exporter 5.57
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      File::Copy 0
+      File::Spec::Functions 0
+      Text::ParseWords 3.24
+      strict 0
+      warnings 0
+  ExtUtils-Install-2.22
+    pathname: B/BI/BINGOS/ExtUtils-Install-2.22.tar.gz
+    provides:
+      ExtUtils::Install 2.22
+      ExtUtils::Install::Warn 2.22
+      ExtUtils::Installed 2.22
+      ExtUtils::Packlist 2.22
+    requirements:
+      Carp 0
+      Cwd 0
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      File::Compare 0
+      File::Copy 0
+      File::Find 0
+      File::Path 0
+      File::Spec 0
+      File::Temp 0
+      Test::More 0.47
+      perl 5.006
+  ExtUtils-InstallPaths-0.015
+    pathname: L/LE/LEONT/ExtUtils-InstallPaths-0.015.tar.gz
+    provides:
+      ExtUtils::InstallPaths 0.015
+    requirements:
+      Carp 0
+      ExtUtils::Config 0.009
+      ExtUtils::MakeMaker 0
+      File::Spec 0
+      perl 5.008
+      strict 0
+      warnings 0
+  ExtUtils-MakeMaker-CPANfile-0.11
+    pathname: I/IS/ISHIGAKI/ExtUtils-MakeMaker-CPANfile-0.11.tar.gz
+    provides:
+      ExtUtils::MakeMaker::CPANfile 0.11
+    requirements:
+      CPAN::Meta::Converter 2.141170
+      Cwd 0
+      ExtUtils::MakeMaker 6.17
+      File::Path 0
+      Module::CPANfile 0
+      Test::More 0.88
+      version 0.76
+  ExtUtils-PL2Bat-0.006
+    pathname: L/LE/LEONT/ExtUtils-PL2Bat-0.006.tar.gz
+    provides:
+      ExtUtils::PL2Bat 0.006
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 0
+      Getopt::Std 0
+      perl 5.006
+      strict 0
+      warnings 0
+  File-Copy-Recursive-0.45
+    pathname: D/DM/DMUEY/File-Copy-Recursive-0.45.tar.gz
+    provides:
+      File::Copy::Recursive 0.45
+    requirements:
+      Cwd 0
+      ExtUtils::MakeMaker 0
+      File::Copy 0
+      File::Glob 0
+      File::Spec 0
+  File-Which-1.27
+    pathname: P/PL/PLICEASE/File-Which-1.27.tar.gz
+    provides:
+      File::Which 1.27
+    requirements:
+      ExtUtils::MakeMaker 0
+      base 0
+      perl 5.006
+  File-pushd-1.016
+    pathname: D/DA/DAGOLDEN/File-pushd-1.016.tar.gz
+    provides:
+      File::pushd 1.016
+    requirements:
+      Carp 0
+      Cwd 0
+      Exporter 0
+      ExtUtils::MakeMaker 6.17
+      File::Path 0
+      File::Spec 0
+      File::Temp 0
+      overload 0
+      perl 5.006
+      strict 0
+      warnings 0
+  HTTP-Tinyish-0.20
+    pathname: M/MI/MIYAGAWA/HTTP-Tinyish-0.20.tar.gz
+    provides:
+      HTTP::Tinyish 0.20
+      HTTP::Tinyish::Base undef
+      HTTP::Tinyish::Curl undef
+      HTTP::Tinyish::HTTPTiny undef
+      HTTP::Tinyish::LWP undef
+      HTTP::Tinyish::Wget undef
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Which 0
+      HTTP::Tiny 0.055
+      IPC::Run3 0
+      parent 0
+      perl 5.008001
+  IPC-Run3-0.049
+    pathname: R/RJ/RJBS/IPC-Run3-0.049.tar.gz
+    provides:
+      IPC::Run3 0.049
+    requirements:
+      ExtUtils::MakeMaker 0
+      Test::More 0.31
+      Time::HiRes 0
+  JSON-4.11
+    pathname: I/IS/ISHIGAKI/JSON-4.11.tar.gz
+    provides:
+      JSON 4.11
+      JSON::Backend::PP 4.11
+    requirements:
+      ExtUtils::MakeMaker 0
+      Scalar::Util 1.08
+      Test::More 0.88
+  MRO-Compat-0.15
+    pathname: H/HA/HAARG/MRO-Compat-0.15.tar.gz
+    provides:
+      MRO::Compat 0.15
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.006
+  Module-Build-Tiny-0.053
+    pathname: L/LE/LEONT/Module-Build-Tiny-0.053.tar.gz
+    provides:
+      Module::Build::Tiny 0.053
+    requirements:
+      CPAN::Meta 0
+      DynaLoader 0
+      Exporter 5.57
+      ExtUtils::CBuilder 0
+      ExtUtils::Config 0.003
+      ExtUtils::Helpers 0.020
+      ExtUtils::Install 0
+      ExtUtils::InstallPaths 0.002
+      ExtUtils::ParseXS 0
+      File::Basename 0
+      File::Find 0
+      File::Path 0
+      File::Spec::Functions 0
+      Getopt::Long 2.36
+      JSON::PP 2
+      Pod::Man 0
+      TAP::Harness::Env 0
+      perl 5.006
+      strict 0
+      warnings 0
+  Module-CPANfile-1.1004
+    pathname: M/MI/MIYAGAWA/Module-CPANfile-1.1004.tar.gz
+    provides:
+      Module::CPANfile 1.1004
+      Module::CPANfile::Environment undef
+      Module::CPANfile::Prereq undef
+      Module::CPANfile::Prereqs undef
+      Module::CPANfile::Requirement undef
+    requirements:
+      CPAN::Meta 2.12091
+      CPAN::Meta::Prereqs 2.12091
+      ExtUtils::MakeMaker 0
+      parent 0
+  Module-cpmfile-v1.0.0
+    pathname: S/SK/SKAJI/Module-cpmfile-v1.0.0.tar.gz
+    provides:
+      Module::cpmfile v1.0.0
+      Module::cpmfile::Prereqs undef
+      Module::cpmfile::Util undef
+    requirements:
+      CPAN::Meta::Prereqs 0
+      CPAN::Meta::Requirements 2.130
+      Exporter 5.57
+      Module::Build::Tiny 0.053
+      Scalar::Util 0
+      YAML::PP 0.027
+      perl v5.24.0
+  PPI-1.291
+    pathname: M/MI/MITHALDU/PPI-1.291.tar.gz
+    provides:
+      PPI 1.291
+      PPI::Cache 1.291
+      PPI::Document 1.291
+      PPI::Document::File 1.291
+      PPI::Document::Fragment 1.291
+      PPI::Document::Normalized 1.291
+      PPI::Dumper 1.291
+      PPI::Element 1.291
+      PPI::Exception 1.291
+      PPI::Exception::ParserRejection 1.291
+      PPI::Find 1.291
+      PPI::Lexer 1.291
+      PPI::Node 1.291
+      PPI::Normal 1.291
+      PPI::Normal::Standard 1.291
+      PPI::Singletons 1.291
+      PPI::Statement 1.291
+      PPI::Statement::Break 1.291
+      PPI::Statement::Compound 1.291
+      PPI::Statement::Data 1.291
+      PPI::Statement::End 1.291
+      PPI::Statement::Expression 1.291
+      PPI::Statement::Given 1.291
+      PPI::Statement::Include 1.291
+      PPI::Statement::Include::Perl6 1.291
+      PPI::Statement::Null 1.291
+      PPI::Statement::Package 1.291
+      PPI::Statement::Scheduled 1.291
+      PPI::Statement::Sub 1.291
+      PPI::Statement::Unknown 1.291
+      PPI::Statement::UnmatchedBrace 1.291
+      PPI::Statement::Variable 1.291
+      PPI::Statement::When 1.291
+      PPI::Structure 1.291
+      PPI::Structure::Block 1.291
+      PPI::Structure::Condition 1.291
+      PPI::Structure::Constructor 1.291
+      PPI::Structure::For 1.291
+      PPI::Structure::Given 1.291
+      PPI::Structure::List 1.291
+      PPI::Structure::Signature 1.291
+      PPI::Structure::Subscript 1.291
+      PPI::Structure::Unknown 1.291
+      PPI::Structure::When 1.291
+      PPI::Token 1.291
+      PPI::Token::ArrayIndex 1.291
+      PPI::Token::Attribute 1.291
+      PPI::Token::BOM 1.291
+      PPI::Token::Cast 1.291
+      PPI::Token::Comment 1.291
+      PPI::Token::DashedWord 1.291
+      PPI::Token::Data 1.291
+      PPI::Token::End 1.291
+      PPI::Token::HereDoc 1.291
+      PPI::Token::Label 1.291
+      PPI::Token::Magic 1.291
+      PPI::Token::Number 1.291
+      PPI::Token::Number::Binary 1.291
+      PPI::Token::Number::Exp 1.291
+      PPI::Token::Number::Float 1.291
+      PPI::Token::Number::Hex 1.291
+      PPI::Token::Number::Octal 1.291
+      PPI::Token::Number::Version 1.291
+      PPI::Token::Operator 1.291
+      PPI::Token::Pod 1.291
+      PPI::Token::Prototype 1.291
+      PPI::Token::Quote 1.291
+      PPI::Token::Quote::Double 1.291
+      PPI::Token::Quote::Interpolate 1.291
+      PPI::Token::Quote::Literal 1.291
+      PPI::Token::Quote::Single 1.291
+      PPI::Token::QuoteLike 1.291
+      PPI::Token::QuoteLike::Backtick 1.291
+      PPI::Token::QuoteLike::Command 1.291
+      PPI::Token::QuoteLike::Readline 1.291
+      PPI::Token::QuoteLike::Regexp 1.291
+      PPI::Token::QuoteLike::Words 1.291
+      PPI::Token::Regexp 1.291
+      PPI::Token::Regexp::Match 1.291
+      PPI::Token::Regexp::Substitute 1.291
+      PPI::Token::Regexp::Transliterate 1.291
+      PPI::Token::Separator 1.291
+      PPI::Token::Structure 1.291
+      PPI::Token::Symbol 1.291
+      PPI::Token::Unknown 1.291
+      PPI::Token::Whitespace 1.291
+      PPI::Token::Word 1.291
+      PPI::Tokenizer 1.291
+      PPI::Transform 1.291
+      PPI::Transform::UpdateCopyright 1.291
+      PPI::Util 1.291
+      PPI::XSAccessor 1.291
+    requirements:
+      Carp 0
+      Clone 0.30
+      Digest::MD5 2.35
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      File::Path 0
+      File::Spec 0.84
+      List::Util 1.33
+      Params::Util 1.00
+      Safe::Isa 0
+      Scalar::Util 0
+      Storable 2.17
+      Task::Weaken 0
+      YAML::PP 0
+      constant 0
+      if 0
+      overload 0
+      perl 5.006
+      strict 0
+      version 0.77
+  Parallel-Pipes-v1.0.0
+    pathname: S/SK/SKAJI/Parallel-Pipes-v1.0.0.tar.gz
+    provides:
+      Parallel::Pipes v1.0.0
+      Parallel::Pipes::App v1.0.0
+    requirements:
+      Module::Build::Tiny 0.053
+      perl v5.24.0
+  Params-Util-1.102
+    pathname: R/RE/REHSACK/Params-Util-1.102.tar.gz
+    provides:
+      Params::Util 1.102
+      Params::Util::PP 1.102
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      File::Copy 0
+      File::Path 0
+      File::Spec 0
+      IPC::Cmd 0
+      Scalar::Util 1.18
+      XSLoader 0.22
+      parent 0
+  Parse-LocalDistribution-0.21
+    pathname: I/IS/ISHIGAKI/Parse-LocalDistribution-0.21.tar.gz
+    provides:
+      Parse::LocalDistribution 0.21
+    requirements:
+      ExtUtils::MakeMaker 0
+      ExtUtils::MakeMaker::CPANfile 0.11
+      File::Find 0
+      File::Spec 0
+      List::Util 0
+      Parse::CPAN::Meta 0
+      Parse::PMFile 0.37
+  Parse-PMFile-0.48
+    pathname: I/IS/ISHIGAKI/Parse-PMFile-0.48.tar.gz
+    provides:
+      Parse::PMFile 0.48
+    requirements:
+      Dumpvalue 0
+      ExtUtils::MakeMaker 0
+      ExtUtils::MakeMaker::CPANfile 0.11
+      File::Spec 0
+      JSON::PP 2.00
+      Safe 0
+      version 0.83
+  Perl-Strip-1.2
+    pathname: M/ML/MLEHMANN/Perl-Strip-1.2.tar.gz
+    provides:
+      Perl::Strip 1.2
+    requirements:
+      Digest::MD5 2
+      ExtUtils::MakeMaker 0
+      PPI 1.213
+      common::sense 3.3
+  Proc-ForkSafe-v1.0.0
+    pathname: S/SK/SKAJI/Proc-ForkSafe-v1.0.0.tar.gz
+    provides:
+      Proc::ForkSafe v1.0.0
+    requirements:
+      Module::Build::Tiny 0.053
+      perl v5.24.0
+  Safe-Isa-1.000010
+    pathname: E/ET/ETHER/Safe-Isa-1.000010.tar.gz
+    provides:
+      Safe::Isa 1.000010
+    requirements:
+      Exporter 5.57
+      ExtUtils::MakeMaker 0
+      Scalar::Util 0
+      perl 5.006
+  String-ShellQuote-1.04
+    pathname: R/RO/ROSCH/String-ShellQuote-1.04.tar.gz
+    provides:
+      String::ShellQuote 1.04
+    requirements:
+      ExtUtils::MakeMaker 0
+  Sub-Exporter-Progressive-0.001013
+    pathname: F/FR/FREW/Sub-Exporter-Progressive-0.001013.tar.gz
+    provides:
+      Sub::Exporter::Progressive 0.001013
+    requirements:
+      ExtUtils::MakeMaker 0
+  Task-Weaken-1.06
+    pathname: E/ET/ETHER/Task-Weaken-1.06.tar.gz
+    provides:
+      Task::Weaken 1.06
+    requirements:
+      Config 0
+      ExtUtils::MakeMaker 0
+      File::Spec 0
+      Scalar::Util 1.14
+      perl 5.006
+      strict 0
+  Tie-Handle-Offset-0.004
+    pathname: D/DA/DAGOLDEN/Tie-Handle-Offset-0.004.tar.gz
+    provides:
+      Tie::Handle::Offset 0.004
+      Tie::Handle::SkipHeader 0.004
+    requirements:
+      ExtUtils::MakeMaker 6.17
+      Tie::Handle 0
+      perl 5.006
+      strict 0
+  Win32-ShellQuote-0.003001
+    pathname: H/HA/HAARG/Win32-ShellQuote-0.003001.tar.gz
+    provides:
+      Win32::ShellQuote 0.003001
+    requirements:
+      perl 5.006
+  YAML-PP-v0.41.0
+    pathname: T/TI/TINITA/YAML-PP-v0.41.0.tar.gz
+    provides:
+      YAML::PP v0.41.0
+      YAML::PP::Common v0.41.0
+      YAML::PP::Constructor v0.41.0
+      YAML::PP::Dumper v0.41.0
+      YAML::PP::Emitter v0.41.0
+      YAML::PP::Exception v0.41.0
+      YAML::PP::Grammar v0.41.0
+      YAML::PP::Highlight v0.41.0
+      YAML::PP::Lexer v0.41.0
+      YAML::PP::Loader v0.41.0
+      YAML::PP::Parser v0.41.0
+      YAML::PP::Perl v0.41.0
+      YAML::PP::Preserve::Array v0.41.0
+      YAML::PP::Preserve::Hash v0.41.0
+      YAML::PP::Preserve::Scalar v0.41.0
+      YAML::PP::Reader v0.41.0
+      YAML::PP::Reader::File v0.41.0
+      YAML::PP::Render v0.41.0
+      YAML::PP::Representer v0.41.0
+      YAML::PP::Schema v0.41.0
+      YAML::PP::Schema::Binary v0.41.0
+      YAML::PP::Schema::Catchall v0.41.0
+      YAML::PP::Schema::Core v0.41.0
+      YAML::PP::Schema::Failsafe v0.41.0
+      YAML::PP::Schema::Include v0.41.0
+      YAML::PP::Schema::JSON v0.41.0
+      YAML::PP::Schema::Merge v0.41.0
+      YAML::PP::Schema::Perl v0.41.0
+      YAML::PP::Schema::Tie::IxHash v0.41.0
+      YAML::PP::Schema::YAML1_1 v0.41.0
+      YAML::PP::Type::MergeKey v0.41.0
+      YAML::PP::Writer v0.41.0
+      YAML::PP::Writer::File v0.41.0
+    requirements:
+      B 0
+      B::Deparse 0
+      Carp 0
+      Data::Dumper 0
+      Encode 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      File::Basename 0
+      Getopt::Long 0
+      MIME::Base64 0
+      Module::Load 0
+      Scalar::Util 1.07
+      Tie::Array 0
+      Tie::Hash 0
+      base 0
+      constant 0
+      overload 0
+      perl 5.008000
+      strict 0
+      warnings 0
+  common-sense-3.75
+    pathname: M/ML/MLEHMANN/common-sense-3.75.tar.gz
+    provides:
+      common::sense 3.75
+    requirements:
+      ExtUtils::MakeMaker 0

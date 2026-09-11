@@ -1,0 +1,44 @@
+name: Test Perl setup with cpanm module installer
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create cpanfile with minimal dependencies
+        run: |
+          mkdir -p myapp
+          cat > myapp/cpanfile << 'EOF'
+          requires 'Try::Tiny';
+          EOF
+          cat myapp/cpanfile
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+          install-modules-with: "cpanm"
+          working-directory: "myapp"
+          enable-modules-cache: "false"
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS: perl-version is set to $PERL_VERSION"
+      - name: Assert perl is on PATH
+        run: |
+          which perl
+          perl --version
+      - name: Assert Try::Tiny is installed via cpanm
+        run: |
+          perl -MTry::Tiny -e 'print "Try::Tiny loaded OK\n"'
+          if [ $? -ne 0 ]; then
+            echo "FAIL: Try::Tiny not installed"
+            exit 1
+          fi
+          echo "PASS: Try::Tiny is installed via cpanm"
