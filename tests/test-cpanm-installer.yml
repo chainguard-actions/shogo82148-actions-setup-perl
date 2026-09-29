@@ -1,0 +1,49 @@
+name: Test cpanm installer with cpanfile
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Create cpanfile
+        run: |
+          cat > cpanfile << 'EOF'
+          requires 'JSON';
+          requires 'Scalar::Util';
+          EOF
+          cat cpanfile
+      - id: setup-perl
+        uses: .
+        with:
+          perl-version: "5.38.0"
+          install-modules-with: "cpanm"
+      - name: Assert perl-version output is set
+        env:
+          PERL_VERSION: ${{ steps.setup-perl.outputs.perl-version }}
+        run: |
+          echo "perl-version: $PERL_VERSION"
+          if [ -z "$PERL_VERSION" ]; then
+            echo "FAIL: perl-version output is empty"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert JSON module is installed via cpanm
+        run: |
+          perl -MJSON -e 'print "JSON version: ", $JSON::VERSION, "\n"'
+          if [ $? -ne 0 ]; then
+            echo "FAIL: JSON module not installed"
+            exit 1
+          fi
+          echo "PASS: JSON module is installed via cpanm"
+      - name: Assert cache-hit output is set
+        env:
+          CACHE_HIT: ${{ steps.setup-perl.outputs.cache-hit }}
+        run: |
+          echo "cache-hit: $CACHE_HIT"
+          # cache-hit can be true or false, just check it's not empty
+          if [ -z "$CACHE_HIT" ]; then
+            echo "FAIL: cache-hit output is empty"
+            exit 1
+          fi
+          echo "PASS: cache-hit is '$CACHE_HIT'"

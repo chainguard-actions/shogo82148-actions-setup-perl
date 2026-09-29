@@ -1,0 +1,16 @@
+requires 'perl', '5.24.0';
+requires "Devel::GlobalDestruction::XS";
+requires "Module::Build::Tiny";
+requires 'CPAN::Meta::Requirements';
+requires 'Distribution::Metadata';
+requires 'App::FatPacker::Simple';
+requires 'Module::Build::Tiny';
+
+requires "App::cpm";
+requires "Class::C3";
+requires "Devel::GlobalDestruction";
+requires "ExtUtils::PL2Bat";
+requires "MRO::Compat";
+requires 'ExtUtils::Manifest';
+requires 'ExtUtils::MakeMaker';
+requires 'Getopt::Long';
