@@ -1,0 +1,26 @@
+name: Test perl-version-file input
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version-file: tests/fixtures/perl-version
+      - name: Assert perl-version output matches file
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.36.*) echo "PASS" ;;
+            *) echo "FAIL: expected 5.36.x"; exit 1 ;;
+          esac
+      - name: Assert perl works
+        run: |
+          perl -v
+          perl -e 'exit($] >= 5.036 && $] < 5.037 ? 0 : 1)' || { echo "FAIL: wrong perl"; exit 1; }
+          echo "PASS"

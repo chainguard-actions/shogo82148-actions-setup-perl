@@ -1,0 +1,43 @@
+name: Test basic usage
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version: "5.38"
+      - name: Assert perl-version output
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.38.*) echo "PASS" ;;
+            *) echo "FAIL: expected 5.38.x"; exit 1 ;;
+          esac
+      - name: Assert perl-hash output non-empty
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-hash }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ -z "$ACTUAL" ]; then
+            echo "FAIL: perl-hash empty"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert perl on PATH is the installed version
+        env:
+          EXPECTED: ${{ steps.action.outputs.perl-version }}
+        run: |
+          which perl
+          ACTUAL="$(perl -e 'print sprintf("%vd", $^V)')"
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "FAIL: expected $EXPECTED"
+            exit 1
+          fi
+          echo "PASS"

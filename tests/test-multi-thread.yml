@@ -1,0 +1,31 @@
+name: Test multi-thread perl
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version: "5.38"
+          multi-thread: "true"
+      - name: Assert threads enabled
+        run: |
+          ACTUAL="$(perl -MConfig -e 'print $Config{useithreads} // ""')"
+          echo "useithreads: $ACTUAL"
+          if [ "$ACTUAL" != "define" ]; then
+            echo "FAIL: expected useithreads=define"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert version output
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.38.*) echo "PASS" ;;
+            *) echo "FAIL"; exit 1 ;;
+          esac
