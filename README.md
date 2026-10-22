@@ -17,6 +17,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | v1.44.0 | [`v1.44.0`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.0) | [`ac32027`](https://github.com/shogo82148/actions-setup-perl/commit/ac3202722f5744e62a8fa3af3e1aaaebb08861f3) |
 | v1.44.1 | [`v1.44.1`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.1) | [`b61fd6d`](https://github.com/shogo82148/actions-setup-perl/commit/b61fd6db748050f91bedd4d72ad5e404b5177cc0) |
 | v1.44.2 | [`v1.44.2`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.2) | [`8b574cd`](https://github.com/shogo82148/actions-setup-perl/commit/8b574cdc2dffdae49f803204a4f2b716a2fa1db7) |
+| v1.44.3 | [`v1.44.3`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.3) | [`a99edab`](https://github.com/shogo82148/actions-setup-perl/commit/a99edab616eaa8a66bbc16363c77a83361e5f2ce) |
 
 ## Privacy
 
