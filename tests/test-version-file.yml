@@ -1,0 +1,26 @@
+name: Test perl-version-file
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version-file: tests/fixtures/perl-version
+          enable-modules-cache: "false"
+      - name: Assert version read from file
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.36.*) echo "PASS" ;;
+            *) echo "FAIL: expected 5.36.x"; exit 1 ;;
+          esac
+          V="$(perl -e 'printf "%vd", $^V')"
+          echo "perl reports: $V"
+          if [ "$V" != "$ACTUAL" ]; then echo "FAIL: perl on PATH mismatch"; exit 1; fi
+          echo "PASS"
