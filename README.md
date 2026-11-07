@@ -19,6 +19,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | v1.44.2 | [`v1.44.2`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.2) | [`8b574cd`](https://github.com/shogo82148/actions-setup-perl/commit/8b574cdc2dffdae49f803204a4f2b716a2fa1db7) | [`HARDENING.md`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/blob/v1.44.2/HARDENING.md) |
 | v1.44.3 | [`v1.44.3`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.3) | [`a99edab`](https://github.com/shogo82148/actions-setup-perl/commit/a99edab616eaa8a66bbc16363c77a83361e5f2ce) | [`HARDENING.md`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/blob/v1.44.3/HARDENING.md) |
 | v1.44.4 | [`v1.44.4`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.4) | [`3b59bd3`](https://github.com/shogo82148/actions-setup-perl/commit/3b59bd33efdae98406a9bc4b75a4aa041e11993a) | [`HARDENING.md`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/blob/v1.44.4/HARDENING.md) |
+| v1.44.5 | [`v1.44.5`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/tree/v1.44.5) | [`eebc5c8`](https://github.com/shogo82148/actions-setup-perl/commit/eebc5c886de14ebbfcd2493d49a12007d2c30477) | [`HARDENING.md`](https://github.com/chainguard-actions/shogo82148-actions-setup-perl/blob/v1.44.5/HARDENING.md) |
 
 ## Privacy
 
