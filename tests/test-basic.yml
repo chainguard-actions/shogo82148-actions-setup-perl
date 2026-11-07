@@ -1,0 +1,44 @@
+name: Test basic usage
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version: "5.38"
+          enable-modules-cache: "false"
+      - name: Assert perl-version output
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.38.*) echo "PASS" ;;
+            *) echo "FAIL: expected 5.38.x"; exit 1 ;;
+          esac
+      - name: Assert perl-hash output
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-hash }}
+        run: |
+          echo "actual: $ACTUAL"
+          if ! echo "$ACTUAL" | grep -qE '^[0-9a-f]{64}$'; then
+            echo "FAIL: expected 64-char sha256 hex digest"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert perl on PATH matches
+        env:
+          EXPECTED: ${{ steps.action.outputs.perl-version }}
+        run: |
+          which perl
+          ACTUAL="$(perl -e 'printf "%vd", $^V')"
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "FAIL: expected perl $EXPECTED on PATH"
+            exit 1
+          fi
+          echo "PASS"

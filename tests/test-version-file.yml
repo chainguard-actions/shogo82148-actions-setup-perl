@@ -1,0 +1,30 @@
+name: Test perl-version-file
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version-file: tests/fixtures/perl-version
+          enable-modules-cache: "false"
+      - name: Assert perl-version output from file
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.36.*) echo "PASS" ;;
+            *) echo "FAIL: expected 5.36.x"; exit 1 ;;
+          esac
+      - name: Assert perl binary version
+        run: |
+          ACTUAL="$(perl -e 'printf "%vd", $^V')"
+          echo "actual: $ACTUAL"
+          case "$ACTUAL" in
+            5.36.*) echo "PASS" ;;
+            *) echo "FAIL: expected perl 5.36.x on PATH"; exit 1 ;;
+          esac

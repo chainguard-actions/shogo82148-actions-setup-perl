@@ -1,0 +1,30 @@
+name: Test strawberry distribution falls back on Linux
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version: "5.38.2"
+          distribution: strawberry
+          enable-modules-cache: "false"
+      - name: Assert default distribution was used
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "5.38.2" ]; then
+            echo "FAIL: expected 5.38.2"
+            exit 1
+          fi
+          V="$(perl -e 'printf "%vd", $^V')"
+          echo "perl on PATH: $V"
+          if [ "$V" != "5.38.2" ]; then
+            echo "FAIL: expected perl 5.38.2 on PATH"
+            exit 1
+          fi
+          echo "PASS"

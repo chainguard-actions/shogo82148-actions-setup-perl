@@ -1,0 +1,28 @@
+name: Test install-modules with cpanm
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version: "5.38"
+          install-modules-with: cpanm
+          install-modules: |
+            Try::Tiny
+          enable-modules-cache: "false"
+      - name: Assert module installed and loadable
+        run: |
+          echo "PERL5LIB=$PERL5LIB"
+          if [ ! -d "$GITHUB_WORKSPACE/local/lib/perl5" ]; then
+            echo "FAIL: local/lib/perl5 not created"
+            exit 1
+          fi
+          if ! perl -MTry::Tiny -e 'print "Try::Tiny $Try::Tiny::VERSION\n"'; then
+            echo "FAIL: Try::Tiny not loadable"
+            exit 1
+          fi
+          echo "PASS"

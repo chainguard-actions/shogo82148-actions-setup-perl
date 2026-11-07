@@ -1,0 +1,33 @@
+name: Test exact version
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          perl-version: "5.38.2"
+          enable-modules-cache: "false"
+      - name: Assert perl-version output
+        env:
+          ACTUAL: ${{ steps.action.outputs.perl-version }}
+        run: |
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "5.38.2" ]; then
+            echo "FAIL: expected 5.38.2"
+            exit 1
+          fi
+          echo "PASS"
+      - name: Assert perl binary version
+        run: |
+          ACTUAL="$(perl -e 'printf "%vd", $^V')"
+          echo "actual: $ACTUAL"
+          if [ "$ACTUAL" != "5.38.2" ]; then
+            echo "FAIL: expected perl 5.38.2 on PATH"
+            exit 1
+          fi
+          perl -V:useithreads | grep -q "useithreads='undef'" || { echo "FAIL: expected non-thread perl by default"; exit 1; }
+          echo "PASS"
